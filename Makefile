@@ -32,6 +32,12 @@ get-embeddings-model: ## Download embeddings model from the openstack-lightspeed
 	podman cp tmp-rag-container:/rag/embeddings_model embeddings_model
 	podman rm tmp-rag-container
 
+get-vector-db: ## Download vector database from the openstack-lightspeed/rag-content container image
+	podman create --replace --name tmp-rag-container $(OSLS_CONTAINER) true
+	rm -rf vector_db
+	podman cp tmp-rag-container:/rag/vector_db vector_db
+	podman rm tmp-rag-container
+
 help: ## Show this help screen
 	@echo 'Usage: make <OPTIONS> ... <TARGETS>'
 	@echo ''
